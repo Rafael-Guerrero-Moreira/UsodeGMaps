@@ -62,16 +62,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         rdsatelite = findViewById(R.id.rdSatelite);
         rdhibrid = findViewById(R.id.rdHibri);
         rdterrain = findViewById(R.id.rdTerrain);
+        seekred.setEnabled(false);
+        seekgreen.setEnabled(false);
+        seekblue.setEnabled(false);
         // añadir línea al mapa
         btdraw.setOnClickListener(new View.OnClickListener()
              {
                  @Override
                  public void onClick(View view){
+                     seekred.setEnabled(false);
+                     seekgreen.setEnabled(false);
+                     seekblue.setEnabled(false);
                      if (polyline != null) polyline.remove();
                      PolylineOptions polylineOptions = new PolylineOptions().addAll(latLngList).clickable(true);
                      polyline = mMap.addPolyline(polylineOptions);
+                     seekred.setEnabled(true);
+                     seekgreen.setEnabled(true);
+                     seekblue.setEnabled(true);
                      polyline.setColor(Color.rgb(red,green,blue));
                      setWidth();
+
                  }
 
              }
@@ -88,6 +98,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 seekred.setProgress(0);
                 seekblue.setProgress(0);
                 seekgreen.setProgress(0);
+                seekred.setEnabled(false);
+                seekgreen.setEnabled(false);
+                seekblue.setEnabled(false);
             }
         });
         //eliminar todo
@@ -95,6 +108,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 mMap.clear();
+                seekwidth.setProgress(0);
+                seekred.setProgress(0);
+                seekblue.setProgress(0);
+                seekgreen.setProgress(0);
+                seekred.setEnabled(false);
+                seekgreen.setEnabled(false);
+                seekblue.setEnabled(false);
             }
         });
         seekred.setOnSeekBarChangeListener(this);
