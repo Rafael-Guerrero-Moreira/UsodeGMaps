@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -28,7 +30,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     SeekBar seekwidth,seekred,seekgreen,seekblue;
-    Button btdraw,btclear,btclearall;
+    Button btdraw,btclear,btclearall,btmover;
+    RadioButton rdanimar, rdmover;
 
     Polyline polyline = null;
     List<LatLng> latLngList = new ArrayList<>();
@@ -52,6 +55,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btdraw = findViewById(R.id.btdraw);
         btclear = findViewById(R.id.btclear);
         btclearall = findViewById(R.id.btclearall);
+        btmover = findViewById(R.id.btngo);
+        rdmover = findViewById(R.id.radmover);
+        rdanimar = findViewById(R.id.radanimar);
         // añadir línea al mapa
         btdraw.setOnClickListener(new View.OnClickListener()
              {
@@ -90,6 +96,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         seekred.setOnSeekBarChangeListener(this);
         seekblue.setOnSeekBarChangeListener(this);
         seekgreen.setOnSeekBarChangeListener(this);
+        btmover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rdmover.isChecked()){
+                    LatLng micasa = new LatLng(-0.216079, -78.494246);
+                    mMap.addMarker(new MarkerOptions().position(micasa).title("Marcador en mi casa").snippet("Esta es mi casa").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(micasa,20);
+                    mMap.moveCamera(cameraUpdate);
+
+                }else
+                    if (rdanimar.isChecked()){
+                        LatLng micasa = new LatLng(-0.216079, -78.494246);
+                        mMap.addMarker(new MarkerOptions().position(micasa).title("Marcador en mi casa").snippet("Esta es mi casa").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(micasa,20);
+                        mMap.animateCamera(cameraUpdate);
+                    }
+            }
+        });
     }
 
     private void setWidth() {
@@ -130,13 +154,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng micasa = new LatLng(-0.216079, -78.494246);
         LatLng UTEQ = new LatLng(-1.0126002548120738, -79.46951496733342);
         // añadir los marcadores creados
-        mMap.addMarker(new MarkerOptions().position(micasa).title("Marcador en mi casa").snippet("Esta es mi casa"));
-        mMap.addMarker(new MarkerOptions().position(UTEQ).title("Marcador en la UTEQ").snippet("Esta es mi universidad"));
+        mMap.addMarker(new MarkerOptions().position(micasa).title("Marcador en mi casa").snippet("Esta es mi casa").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.addMarker(new MarkerOptions().position(UTEQ).title("Marcador en la UTEQ").snippet("Esta es mi universidad").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         //Añadir control de camara para el mapa, centrandonos en un punto
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(micasa,20);
         // Utilizar moveCamera o AnimateCamera para ir al punto deseado
-        //mMap.moveCamera(cameraUpdate);
-        mMap.animateCamera(cameraUpdate);
+        //
+        if(rdmover.isChecked())
+        {
+            mMap.moveCamera(cameraUpdate);
+        }else
+            if (rdanimar.isChecked()){
+                mMap.animateCamera(cameraUpdate);
+            }
+            else{
+                mMap.moveCamera(cameraUpdate);
+            }
+
         // Añadimos el tipo de mapa, que en este caso es Híbrido
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         // Activamos los controles de Zoom y de movimiento y rotación
@@ -151,8 +185,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 markerOptions.title(latLng.latitude+" : "+latLng.longitude);
-                Marker marker = mMap.addMarker(markerOptions);
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                Marker marker = mMap.addMarker(markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                if(rdmover.isChecked())
+                {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+                }else
+                if (rdanimar.isChecked()){
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+                }
+                else{
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
+                }
                 latLngList.add(latLng);
                 markerList.add(marker);
 
