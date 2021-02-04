@@ -9,16 +9,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true">
-    <fragment
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MapsActivity" />
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <RadioGroup
+            android:layout_width="304dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radmover"
+                android:layout_width="148dp"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:text="Mover"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/radanimar"
+                android:layout_width="156dp"
+                android:layout_height="match_parent"
+                android:padding="4dp"
+                android:text="Animar" />
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btngo"
+            android:text="Ir"
+            ></Button>
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="352dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="69dp"
+        tools:context=".MapsActivity" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
