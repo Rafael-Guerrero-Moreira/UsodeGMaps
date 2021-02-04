@@ -45,7 +45,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="352dp"
+        android:layout_height="285dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="69dp"
@@ -53,79 +53,129 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
+        android:layout_height="287dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Grosor de línea"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <SeekBar
+            android:id="@+id/seek_width"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seek_width"
+            android:layout_marginTop="5dp"
             android:max="20"
             android:progress="3"
-            android:thumbTint="#A9A9A9"
             android:progressTint="#A9A9A9"
-            android:layout_marginTop="5dp"/>
+            android:thumbTint="#A9A9A9" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Color de línea"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"/>
+            android:textStyle="bold" />
+
         <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/seek_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:max="255"
-            android:thumbTint="#FF0000"
             android:progressTint="#FF0000"
-            android:layout_marginTop="5dp"/>
+            android:thumbTint="#FF0000" />
+
         <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/seek_green"
-            android:max="255"
-            android:thumbTint="#00FF00"
-            android:progressTint="#00FF00"
-            android:layout_marginTop="5dp"/>
-        <SeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/seek_blue"
+            android:layout_marginTop="5dp"
             android:max="255"
-            android:thumbTint="#0000FF"
+            android:progressTint="#00FF00"
+            android:thumbTint="#00FF00" />
+
+        <SeekBar
+            android:id="@+id/seek_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="255"
             android:progressTint="#0000FF"
-            android:layout_marginTop="5dp"/>
+            android:thumbTint="#0000FF" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:weightSum="2">
+
             <Button
+                android:id="@+id/btdraw"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
-                android:id="@+id/btdraw"
-                android:text="Dibujar línea"/>
+                android:text="Dibujar línea" />
+
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
                 android:id="@+id/btclear"
-                android:text="Eliminar líneas"/>
-            <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:text="Eliminar líneas" />
+
+            <Button
                 android:id="@+id/btclearall"
-                android:text="Eliminar todo"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Eliminar todo" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de mapa"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rdnormal"
+                    android:text="Normal"/>
+
+                <RadioButton
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rdSatelite"
+                    android:text="Satelite"/>
+
+                <RadioButton
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rdHibri"
+                    android:text="Hibrido" />
+
+
+                <RadioButton
+                    android:layout_width="93dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rdTerrain"
+                    android:text="Terreno"/>
+            </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

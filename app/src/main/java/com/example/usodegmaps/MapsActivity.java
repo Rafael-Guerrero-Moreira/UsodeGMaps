@@ -31,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     SeekBar seekwidth,seekred,seekgreen,seekblue;
     Button btdraw,btclear,btclearall,btmover;
-    RadioButton rdanimar, rdmover;
+    RadioButton rdanimar, rdmover,rdnormal,rdsatelite,rdhibrid,rdterrain;
 
     Polyline polyline = null;
     List<LatLng> latLngList = new ArrayList<>();
@@ -58,6 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btmover = findViewById(R.id.btngo);
         rdmover = findViewById(R.id.radmover);
         rdanimar = findViewById(R.id.radanimar);
+        rdnormal = findViewById(R.id.rdnormal);
+        rdsatelite = findViewById(R.id.rdSatelite);
+        rdhibrid = findViewById(R.id.rdHibri);
+        rdterrain = findViewById(R.id.rdTerrain);
         // añadir línea al mapa
         btdraw.setOnClickListener(new View.OnClickListener()
              {
@@ -114,6 +118,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
             }
         });
+        rdnormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            }
+        });
+        rdsatelite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            }
+        });
+        rdhibrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            }
+        });
+        rdterrain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            }
+        });
     }
 
     private void setWidth() {
@@ -159,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Añadir control de camara para el mapa, centrandonos en un punto
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(micasa,20);
         // Utilizar moveCamera o AnimateCamera para ir al punto deseado
-        //
         if(rdmover.isChecked())
         {
             mMap.moveCamera(cameraUpdate);
@@ -170,9 +197,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             else{
                 mMap.moveCamera(cameraUpdate);
             }
-
-        // Añadimos el tipo de mapa, que en este caso es Híbrido
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            //
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         // Activamos los controles de Zoom y de movimiento y rotación
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().isMyLocationButtonEnabled();
